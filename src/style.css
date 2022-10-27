@@ -344,3 +344,53 @@
     background-color: #d7e0fc;
     height: 100vh;
 }
+
+/*---------------------Grups-------------------------------*/
+.Content-Section-Group
+{
+    position: relative;
+    left: 5%;
+    width: 15%;
+}
+
+#chat-friends:hover{
+    background: rgb(185, 194, 209);
+}
+
+.content-group
+{
+    width: 70%;
+    position: relative;
+    left: 20%;
+    bottom: 450px;
+}
+
+.mensaje-content img
+{
+    position: relative;
+    left: 2%;
+}
+
+.input-group
+{
+    position: relative;
+    top: 180px;
+}
+
+.content-home
+{
+    position: relative;
+    left: 5%;
+}
+
+.btn-AddGroup
+{
+    border: 0px;
+    background-color: #8db0f1;
+}
+
+.btn-AddGroup a
+{
+    text-decoration: none;
+    color: white;
+}

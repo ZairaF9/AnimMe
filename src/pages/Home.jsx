@@ -1,6 +1,7 @@
 import React from 'react';
 import Nav from '../components/Nav'
 import SideHome from '../components/SideHome'
+import {Link} from 'react-router-dom';
 
 const Home = () => {
      return(
@@ -9,6 +10,8 @@ const Home = () => {
           <Nav/>
           <SideHome/>
           <div className='content-home'>
+            <br/>
+            <button className='btn-AddGroup'><Link to="/CreateGroup">Crear Grupo</Link></button><br/><br/>
             <span>Mis Grupos</span>
           </div>
         </div>
