@@ -29,7 +29,7 @@ return children
       <Route path="login" element={<Login />}/>
       <Route path="register" element={<Register />}/>
       <Route path="chat" element={<ProtectedRoute><ChatA /></ProtectedRoute>}/>
-      <Route path="group" element={<ProtectedRoute><Group /></ProtectedRoute>}/>
+      <Route path="group/:uid" element={<ProtectedRoute><Group /></ProtectedRoute>}/>
       <Route path="CreateGroup" element={<ProtectedRoute><CreateGroup /></ProtectedRoute>}/>
     </Route>
   </Routes>

@@ -394,3 +394,15 @@
     text-decoration: none;
     color: white;
 }
+
+.Link-Group
+{
+    text-decoration: none;
+    width: 100%;
+}
+
+.Groups-Container-a
+{
+    border: solid black 1px;
+    width: 20%;
+}

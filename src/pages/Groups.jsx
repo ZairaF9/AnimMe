@@ -1,10 +1,43 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Nav from '../components/Nav';
 import SideHome from '../components/SideHome';
 import SectionGroups from '../components/SectionGroups';
+import { useParams  } from "react-router-dom";
+import {collection, query, where, getDocs} from "firebase/firestore";
+import {db} from "../Firebase";
 
 const Group = () =>
 {
+
+    const params = useParams();
+    var Groupsuid;
+    var GroupsName;
+    var GroupsPhoto;
+    var GroupsUsers;
+    const Group = [];
+    const [GroupFinal, setGroupFinal] = useState([]);
+
+    const GetGroup = async () =>
+    {
+        const q = query(collection(db, "Groups"), where("uid", '==', params.uid));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+            Groupsuid = doc.data().uid;
+            GroupsName = doc.data().NameGroup;
+            GroupsPhoto = doc.data().photoURL;
+            GroupsUsers = doc.data().usersId;
+        });
+        Group.push(Groupsuid);
+        Group.push(GroupsName);
+        Group.push(GroupsPhoto);
+        Group.push(GroupsUsers);
+        setGroupFinal(Group);
+    }
+
+    useEffect(() => {
+        GetGroup();
+      }, []);
+
     return(
         <div className='group-container'>
             <div className='navgroup'>
