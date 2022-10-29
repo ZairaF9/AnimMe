@@ -17,50 +17,7 @@ const Group = () =>
     const params = useParams();
     const {currentUser} = useContext(AuthContext);
     const [img,setImg] = useState(null);
-    const [FinalMessagesDB, setMessageDB] = useState([]);
-    const MessagesArray = [];
-    const Msg = [];
     const NewMessage = [];
-    const ref= useRef();
-
-    const GetMessagesDB = async () =>
-    {
-        const q = query(collection(db, "GroupsChat"), where("uid", '==', params.uid));
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-            Msg.push(doc.data().Messages);
-        });
-        
-        for (var i = 0; i < Msg[0].length; i++)
-        {
-            MessagesArray.push(
-                <div>
-                    <div>
-                        <img src={Msg[0][i].senderPhoto}
-                        class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40"/>
-                    </div>
-                    <div className="flex-shrink-1 rounded py-2 px-4 ml-3">
-                    <div className="font-weight-bold mb-1">{Msg[0][i].senderName}</div>
-                    <div className="text-muted small text-nowrap mt-2">{Msg[0][i].date}</div>
-                    <div className="font-weight-bold mb-3">
-                        {Msg[0][i].Text}
-                        <br/>
-                    <br/>
-                    </div>
-                    <img src={Msg[0][i].photoMessage} alt="mdo" width="220" height="280"
-                    class="img-fluid py- rounded"/>
-                </div> 
-                    <p></p>
-                </div>
-            );
-        }
-        setMessageDB(MessagesArray);
-    }
-
-    useEffect(() => {
-        GetMessagesDB();
-      }, []);
-
     const [err, setErr] = useState(false);
 
     const handleSubmit = async (e) =>
@@ -73,8 +30,7 @@ const Group = () =>
         var mm = String(today.getMonth() + 1).padStart(2, '0');
         var yyyy = today.getFullYear();
         today = mm + '/' + dd + '/' + yyyy;
-        console.log(today);
-
+    
         try {
             if(img)
             { 
@@ -124,9 +80,10 @@ const Group = () =>
 
         } catch (error) {
             setErr(true);
+            console.log(error);
         }
         setImg(null);
-    }//FinalMessagesDB
+    }
 
     return(
         <div className='group-container'>
@@ -140,7 +97,6 @@ const Group = () =>
             <div className='mensaje-content'>
                 
                 <div className='Message'>
-                    {FinalMessagesDB}
                     <GroupsMessajes/>
                 </div>
 

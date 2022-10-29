@@ -3,10 +3,18 @@ import React, { useContext, useEffect, useRef} from "react";
 const GroupMessage = ({message}) =>
 {
     const ref = useRef();
+    var FotoMessage;
     useEffect(() => {
         ref.current?.scrollIntoView({ behavior: "smooth" });
     }, [message]);
     console.log(message);
+    if(message.photoMessage)
+    {
+        FotoMessage = <>
+                    <img src={message.photoMessage} alt="mdo" width="220" height="280"
+                    class="img-fluid py- rounded"/>
+                    </>
+    }
 
     return(
                 <div>
@@ -19,9 +27,9 @@ const GroupMessage = ({message}) =>
                     <div className="text-muted small text-nowrap mt-2">{message.date}</div>
                     <div className="font-weight-bold mb-3">
                         {message.Text}
-                        <br/>
                     <br/>
                     </div>
+                    {FotoMessage}
                 </div> 
                     <p></p>
                 </div>
