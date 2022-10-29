@@ -1,8 +1,11 @@
 import React, { useContext, useEffect, useRef} from "react";
+import { AuthContext } from '../context/AuthContext';
 
 const GroupMessage = ({message}) =>
 {
     const ref = useRef();
+    const {currentUser} = useContext(AuthContext);
+
     var FotoMessage;
     useEffect(() => {
         ref.current?.scrollIntoView({ behavior: "smooth" });
@@ -18,6 +21,7 @@ const GroupMessage = ({message}) =>
 
     return(
                 <div>
+                    <div ref={ref} className={`GroupMessage ${message.senderId === currentUser.uid && "ownerGM"}`}></div>
                     <div>
                         <img src={message.senderPhoto}
                         class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40"/>

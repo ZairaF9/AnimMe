@@ -9,6 +9,7 @@ import {db, storage} from "../Firebase";
 import { AuthContext } from '../context/AuthContext';
 import {v4 as uuidv4} from 'uuid';
 import GroupsMessajes from '../components/GroupsMessajes';
+import GroupMessage from '../components/GroupsMessaje';
 
 
 const Group = () =>
@@ -19,6 +20,8 @@ const Group = () =>
     const [img,setImg] = useState(null);
     const NewMessage = [];
     const [err, setErr] = useState(false);
+    const dummy = useRef();
+    const [sNewMessage, setNewMessage] = useState([]);
 
     const handleSubmit = async (e) =>
     {
@@ -57,6 +60,16 @@ const Group = () =>
                                 }),
                             });
                         });
+                        var ObjNewMessage = {
+                            id: MessageGroupId,
+                            uid: params.uid,
+                            Text: Text,
+                            senderId:currentUser.uid,
+                            senderPhoto: currentUser.photoURL,
+                            senderName: currentUser.displayName,
+                            date:today
+                        };
+                        NewMessage.push(ObjNewMessage);
                     }
                 );
             }else{
@@ -71,13 +84,19 @@ const Group = () =>
                     date:today
                     }),
                 });
+                var ObjNewMessage = {
+                    id: MessageGroupId,
+                    uid: params.uid,
+                    Text: Text,
+                    senderId:currentUser.uid,
+                    senderPhoto: currentUser.photoURL,
+                    senderName: currentUser.displayName,
+                    date:today
+                };
+                NewMessage.push(ObjNewMessage);
               }
-
-            NewMessage.push(Text);
-            NewMessage.push(currentUser.photoURL);
-            NewMessage.push(currentUser.displayName);
-            NewMessage.push(today);
-
+              setNewMessage(NewMessage);
+              dummy.current.scrollIntoView({behavior: 'smooth'});
         } catch (error) {
             setErr(true);
             console.log(error);
@@ -98,6 +117,10 @@ const Group = () =>
                 
                 <div className='Message'>
                     <GroupsMessajes/>
+                    {sNewMessage.map((m)=>(
+                        <GroupMessage message ={m} key={m.uid}/>
+                    ))}
+                    <div ref={dummy}></div>
                 </div>
 
                 <div className="input-group p-2">

@@ -275,6 +275,15 @@
    align-items: flex-end;
   }
 
+  .GroupMessage
+  {
+    display: flex;
+  }
+
+  .GroupMessage.ownerGM{
+    flex-direction: row-reverse;
+  }
+
   .message.owner .messageContent p{
     background-color: #8db0f1;
     color:#fff;

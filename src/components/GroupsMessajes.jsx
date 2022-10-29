@@ -8,6 +8,7 @@ const GroupsMessajes = ()=>
 {
     const [sNewMessage, setNewMessage] = useState([]);
     const params = useParams();
+    const dummy = useRef();
 
     const InsertNewMessage = async () =>
     {
@@ -16,6 +17,7 @@ const GroupsMessajes = ()=>
         querySnapshot.forEach((doc) => {
             setNewMessage(doc.data().Messages);
         });
+        dummy.current.scrollIntoView({behavior: 'smooth'})
     }
 
     useEffect(() => {
@@ -27,6 +29,7 @@ const GroupsMessajes = ()=>
             {sNewMessage.map((m)=>(
                 <GroupMessage message ={m} key={m.uid}/>
             ))}
+            <div ref={dummy}></div>
         </div>
     );
 }
