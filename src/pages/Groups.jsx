@@ -1,42 +1,132 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext, useRef} from 'react';
 import Nav from '../components/Nav';
 import SideHome from '../components/SideHome';
 import SectionGroups from '../components/SectionGroups';
 import { useParams  } from "react-router-dom";
-import {collection, query, where, getDocs} from "firebase/firestore";
-import {db} from "../Firebase";
+import {collection, query, where, getDocs, updateDoc, doc, arrayUnion, Timestamp} from "firebase/firestore";
+import {ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import {db, storage} from "../Firebase";
+import { AuthContext } from '../context/AuthContext';
+import {v4 as uuidv4} from 'uuid';
+import GroupsMessajes from '../components/GroupsMessajes';
+
 
 const Group = () =>
 {
 
     const params = useParams();
-    var Groupsuid;
-    var GroupsName;
-    var GroupsPhoto;
-    var GroupsUsers;
-    const Group = [];
-    const [GroupFinal, setGroupFinal] = useState([]);
+    const {currentUser} = useContext(AuthContext);
+    const [img,setImg] = useState(null);
+    const [FinalMessagesDB, setMessageDB] = useState([]);
+    const MessagesArray = [];
+    const Msg = [];
+    const NewMessage = [];
+    const ref= useRef();
 
-    const GetGroup = async () =>
+    const GetMessagesDB = async () =>
     {
-        const q = query(collection(db, "Groups"), where("uid", '==', params.uid));
+        const q = query(collection(db, "GroupsChat"), where("uid", '==', params.uid));
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
-            Groupsuid = doc.data().uid;
-            GroupsName = doc.data().NameGroup;
-            GroupsPhoto = doc.data().photoURL;
-            GroupsUsers = doc.data().usersId;
+            Msg.push(doc.data().Messages);
         });
-        Group.push(Groupsuid);
-        Group.push(GroupsName);
-        Group.push(GroupsPhoto);
-        Group.push(GroupsUsers);
-        setGroupFinal(Group);
+        
+        for (var i = 0; i < Msg[0].length; i++)
+        {
+            MessagesArray.push(
+                <div>
+                    <div>
+                        <img src={Msg[0][i].senderPhoto}
+                        class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40"/>
+                    </div>
+                    <div className="flex-shrink-1 rounded py-2 px-4 ml-3">
+                    <div className="font-weight-bold mb-1">{Msg[0][i].senderName}</div>
+                    <div className="text-muted small text-nowrap mt-2">{Msg[0][i].date}</div>
+                    <div className="font-weight-bold mb-3">
+                        {Msg[0][i].Text}
+                        <br/>
+                    <br/>
+                    </div>
+                    <img src={Msg[0][i].photoMessage} alt="mdo" width="220" height="280"
+                    class="img-fluid py- rounded"/>
+                </div> 
+                    <p></p>
+                </div>
+            );
+        }
+        setMessageDB(MessagesArray);
     }
 
     useEffect(() => {
-        GetGroup();
+        GetMessagesDB();
       }, []);
+
+    const [err, setErr] = useState(false);
+
+    const handleSubmit = async (e) =>
+    {
+        e.preventDefault();
+        const Text = e.target[0].value;
+        let MessageGroupId = uuidv4();
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+        today = mm + '/' + dd + '/' + yyyy;
+        console.log(today);
+
+        try {
+            if(img)
+            { 
+                const storageRef = ref(storage, MessageGroupId);
+                const uploadTask = uploadBytesResumable(storageRef, img);
+
+                uploadTask.on(
+                    (error) => {
+                        setErr(true);
+                    },
+                    () =>
+                    {
+                        getDownloadURL(uploadTask.snapshot.ref).then( async (downloadURL) =>{
+                            await updateDoc(doc(db,"GroupsChat",params.uid),{
+                                Messages:arrayUnion({
+                                id: MessageGroupId,
+                                uid: params.uid,
+                                Text,
+                                senderId:currentUser.uid,
+                                senderPhoto: currentUser.photoURL,
+                                senderName: currentUser.displayName,
+                                date: today,
+                                photoMessage: downloadURL
+                                }),
+                            });
+                        });
+                    }
+                );
+            }else{
+                await updateDoc(doc(db,"GroupsChat",params.uid),{
+                    Messages:arrayUnion({
+                    id: MessageGroupId,
+                    uid: params.uid,
+                    Text,
+                    senderId:currentUser.uid,
+                    senderPhoto: currentUser.photoURL,
+                    senderName: currentUser.displayName,
+                    date:today
+                    }),
+                });
+              }
+
+            NewMessage.push(Text);
+            NewMessage.push(currentUser.photoURL);
+            NewMessage.push(currentUser.displayName);
+            NewMessage.push(today);
+
+        } catch (error) {
+            setErr(true);
+        }
+        setImg(null);
+    }//FinalMessagesDB
 
     return(
         <div className='group-container'>
@@ -48,26 +138,20 @@ const Group = () =>
             <div className='content-group'>
             <div className="chat-message-left pb-4">
             <div className='mensaje-content'>
-                <div>
-                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                    class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40"/>
+                
+                <div className='Message'>
+                    {FinalMessagesDB}
+                    <GroupsMessajes/>
                 </div>
-                <div className="flex-shrink-1 rounded py-2 px-4 ml-3">
-                <div className="font-weight-bold mb-1">Sharon Lessman</div>
-                <div className="text-muted small text-nowrap mt-2">19/09 9:00 am</div>
-                <div className="font-weight-bold mb-3">
-                    Hoy se celebra el 69 aniversario de la FCFM. En la serie de conferencias de
-                    las carreras, la tenemos como invitado de LMAD al Ing. Hugo Ibarra con la conferencia:
-                    "Realidad virtual como recurso de enseñanza y capacitación" a las 6:00pm. También participamos
-                    con el Video Mapping de las 8:00pm. Saludos.
-                <br/>
-                </div>
-               </div> 
-                <p></p>
+
                 <div className="input-group p-2">
                     <div className='input-group'>
-                        <input type="text" className="form-control" placeholder="Responder..."/>
-                        <button className="btn btn-primary" type="submit" id="btn-send"><i className='bx bxs-send'></i></button>
+                        <form onSubmit={handleSubmit}>
+                            <input type="text" className="form-control" placeholder="Responder..."/>
+                            <input type="file" onChange={e=>setImg(e.target.files[0])}/>
+                            <button className="btn btn-primary" type="submit" id="btn-send"><i className='bx bxs-send'></i></button>
+                            {err && <span>Algo ha fallado</span>}
+                        </form>
                     </div>
                 </div>
                </div>

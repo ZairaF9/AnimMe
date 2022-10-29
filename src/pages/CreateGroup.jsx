@@ -16,6 +16,7 @@ const CreateGroup = () =>
         const NameGroup = e.target[0].value;
         const Carrera = e.target[1].value;
         const file = e.target[2].files[0];
+        const Messages = [];
         let Gruopuuid = uuidv4();
         var UsersGroupuid = [];
         var UsersGroupName = [];
@@ -37,9 +38,13 @@ const CreateGroup = () =>
                 (error) => {
                     setErr(true);
                  },
-                 () =>
+                () =>
                  {
                     getDownloadURL(uploadTask.snapshot.ref).then( async (downloadURL) =>{
+                        await setDoc(doc(db, "GroupsChat", Gruopuuid),{
+                            uid: Gruopuuid,
+                            Messages: Messages
+                        });
                         await setDoc(doc(db,"Groups",Gruopuuid),{
                             uid: Gruopuuid,
                             NameGroup,
