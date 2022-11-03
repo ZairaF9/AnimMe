@@ -60,16 +60,6 @@ const Group = () =>
                                 }),
                             });
                         });
-                        var ObjNewMessage = {
-                            id: MessageGroupId,
-                            uid: params.uid,
-                            Text: Text,
-                            senderId:currentUser.uid,
-                            senderPhoto: currentUser.photoURL,
-                            senderName: currentUser.displayName,
-                            date:today
-                        };
-                        NewMessage.push(ObjNewMessage);
                     }
                 );
             }else{
@@ -84,19 +74,7 @@ const Group = () =>
                     date:today
                     }),
                 });
-                var ObjNewMessage = {
-                    id: MessageGroupId,
-                    uid: params.uid,
-                    Text: Text,
-                    senderId:currentUser.uid,
-                    senderPhoto: currentUser.photoURL,
-                    senderName: currentUser.displayName,
-                    date:today
-                };
-                NewMessage.push(ObjNewMessage);
               }
-              setNewMessage(NewMessage);
-              dummy.current.scrollIntoView({behavior: 'smooth'});
         } catch (error) {
             setErr(true);
             console.log(error);
@@ -117,10 +95,6 @@ const Group = () =>
                 
                 <div className='Message'>
                     <GroupsMessajes/>
-                    {sNewMessage.map((m)=>(
-                        <GroupMessage message ={m} key={m.uid}/>
-                    ))}
-                    <div ref={dummy}></div>
                 </div>
 
                 <div className="input-group p-2">
