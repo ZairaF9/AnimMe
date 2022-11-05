@@ -11,11 +11,11 @@ const HomeListGroup = ({message}) =>
     var url = "/group/" + message.uid;
 
     return(
-        <Link to={url} class="Link-Group">    
-            <div className="col-sm-2">
-                <div className="card border-dark">
-                    <div className="card-body text-center">
-                        <img src={message.photo} alt="mdo" width="140" height="120" className="img-fluid py-2 rounded"/>
+       <Link to={url} class="Link-Group">    
+            <div className="col-sm-10">
+                <div className="card" id="card-grupo">
+                    <div className="card-body text-center" id="card-grupo-body">
+                        <img src={message.photo} alt="mdo" width="140" height="120"  className="img-fluid rounded-2"/>
                         <h6 className="card-title py-2">{message.Name}</h6>
                     </div>
                 </div>
