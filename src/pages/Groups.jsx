@@ -10,6 +10,8 @@ import { AuthContext } from '../context/AuthContext';
 import {v4 as uuidv4} from 'uuid';
 import GroupsMessajes from '../components/GroupsMessajes';
 import GroupMessage from '../components/GroupsMessaje';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
 
 const Group = () =>
@@ -102,7 +104,7 @@ const Group = () =>
                         <form onSubmit={handleSubmit}>
                             <input type="text" className="form-control" placeholder="Responder..."/>
                             <input type="file" onChange={e=>setImg(e.target.files[0])}/>
-                            <button className="btn btn-primary" type="submit" id="btn-send"><i className='bx bxs-send'></i></button>
+                            <button className="btn btn-primary" type="submit" id="btn-send"><FontAwesomeIcon icon={faPaperPlane} /></button>
                             {err && <span>Algo ha fallado</span>}
                         </form>
                     </div>
