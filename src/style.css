@@ -395,7 +395,15 @@
 .btn-AddGroup
 {
     border: 0px;
-    background-color: #8db0f1;
+    background-color: #384992;
+    height:30px;
+    float:right;
+    margin-right: 170px;
+}
+
+.btn-AddGroup:hover, .btn-AddGroup a:hover{
+    background-color: #888ee0;
+    color: #fff;
 }
 
 .btn-AddGroup a
@@ -404,14 +412,72 @@
     color: white;
 }
 
+
 .Link-Group
 {
     text-decoration: none;
     width: 100%;
+    border: none;
+}
+
+#card-grupo{
+    background: rgb(190, 199, 241);
+    color: #2b2a5a;
+    border: none;
+    box-shadow: 2px 5px 20px rgba(9, 18, 56, 0.7);
 }
 
 .Groups-Container-a
 {
-    border: solid black 1px;
+    border: none;
     width: 20%;
+}
+
+#misgrupos-id{
+    font-size: 1.5em;
+    font-weight: 0.8em;
+}
+
+/*----------------------------------------------------Create Group-------------------------------------------------------*/
+.form-creategroup{
+    background: linear-gradient(to right, rgb(77, 89, 194),rgb(92, 150, 238));
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bg-group{
+    background-image: url('./img/group.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.File_Grupo
+{
+	display: none;
+}
+
+.Label_Grupo
+{
+	border: 0px;
+    color:#fff;
+    padding-top: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+	border-radius: 5px;
+    margin-left:220px;
+	font-size: 18px;
+	background-color: rgb(79, 85, 172);
+    text-align: center;
+}
+
+#btn-create{
+    background: rgb(70, 72, 211);
+    border:none;
+}
+
+#btn-create:hover,.Label_Grupo:hover{
+    background: rgb(129, 144, 230);
 }
