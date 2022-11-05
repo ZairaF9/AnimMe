@@ -10,19 +10,6 @@ const GroupsMessajes = ()=>
     const params = useParams();
     const dummy = useRef();
 
-    /*const InsertNewMessage = async () =>
-    {
-        const q = query(collection(db, "GroupsChat"), where("uid", '==', params.uid));
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-            setNewMessage(doc.data().Messages);
-        });
-    }
-
-    useEffect(() => {
-        InsertNewMessage();
-      }, []);*/
-
     useEffect(()=>{
         const unsub = onSnapshot(doc(db,"GroupsChat",params.uid),(doc)=>{
          doc.exists() && setNewMessage(doc.data().Messages);

@@ -23,8 +23,12 @@ const HomeListGroups = () =>
             }
             Groups.push(ObjGroup);
         });
-        setProgramari(Groups);
-        console.log(Groups);
+        const GroupsNoDouble = [];
+        for (let i = 0; i < Groups.length / 2; i++) {
+            GroupsNoDouble.push(Groups[i]);
+        }
+        setProgramari(GroupsNoDouble);
+        console.log(GroupsNoDouble);
     }
 
     useEffect(() => {
