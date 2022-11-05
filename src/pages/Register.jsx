@@ -5,6 +5,8 @@ import {ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { auth,storage,db} from "../Firebase";
 import { doc, setDoc} from "firebase/firestore";
 import { useNavigate,Link} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faCloudUpload} from '@fortawesome/free-solid-svg-icons'
 
 const Register = () => {
     const [err, setErr] = useState(false);
@@ -97,7 +99,7 @@ const Register = () => {
                             <div className="mb-4" id="avatar">
                                 <img src={Add} width="90" height="90" id="img-user" /><br></br>
                                 <input type="file" name="file_user_name" id="file_user_id" className="File_Registro" />
-                                <label htmlFor="file_user_id" className="Label_Registro" id="file_user_id">Foto de Perfil <i className="fa fa-cloud-upload"></i></label><br></br>
+                                 <label htmlFor="file_user_id" className="Label_Registro" id="file_user_id">Foto de Perfil  <FontAwesomeIcon icon={faCloudUpload} style={{color:"white"}}/> </label><br></br>
                             </div>
                             <div className="d-grid">
                                 <button type="submit" className="btn btn-primary" id="btn-register">Registrarse</button>
