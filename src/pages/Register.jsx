@@ -5,10 +5,23 @@ import {ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { auth,storage,db} from "../Firebase";
 import { doc, setDoc} from "firebase/firestore";
 import { useNavigate,Link} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faCloudUpload} from '@fortawesome/free-solid-svg-icons'
+import CryptoJS from "crypto-js";
 
 const Register = () => {
     const [err, setErr] = useState(false);
     const navigate = useNavigate();
+
+    const cifrar = (texto) => {
+        var textoCifrado = CryptoJS.AES.encrypt(texto, '@borjascript').toString();
+        return textoCifrado;
+    }
+    const descifrar = (texto) => {
+        var bytes = CryptoJS.AES.decrypt(texto, '@borjascript');
+        var textoDescrifrado = bytes.toString(CryptoJS.enc.Utf8);
+        return textoDescrifrado;
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,6 +31,11 @@ const Register = () => {
         const confirm = e.target[3].value;
         const carrera = e.target[4].value;
         const file = e.target[5].files[0];
+        const online = true;
+
+        const nombrecifrado = cifrar(displayName);
+        const emailcifrado = cifrar(email);
+        const carreracifrado = cifrar(carrera);
 
         try {
             const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -37,9 +55,10 @@ const Register = () => {
                         });
                         await setDoc(doc(db,"users",res.user.uid),{
                             uid: res.user.uid,
-                            displayName,
-                            email,
-                            carrera,
+                            displayName: nombrecifrado,
+                            email: emailcifrado,
+                            carrera: carreracifrado,
+                            IsOnline: online,
                             photoURL: downloadURL
                           });
                           await setDoc(doc(db,"userChats",res.user.uid),{
@@ -97,14 +116,14 @@ const Register = () => {
                             <div className="mb-4" id="avatar">
                                 <img src={Add} width="90" height="90" id="img-user" /><br></br>
                                 <input type="file" name="file_user_name" id="file_user_id" className="File_Registro" />
-                                <label htmlFor="file_user_id" className="Label_Registro" id="file_user_id">Foto de Perfil <i className="fa fa-cloud-upload"></i></label><br></br>
+                                <label htmlFor="file_user_id" className="Label_Registro" id="file_user_id">Foto de Perfil  <FontAwesomeIcon icon={faCloudUpload} style={{color:"white"}}/> </label><br></br>
                             </div>
                             <div className="d-grid">
                                 <button type="submit" className="btn btn-primary" id="btn-register">Registrarse</button>
                                 {err && <span>Algo ha fallado</span>}
                             </div>
                             <div className="my-3 text-center">
-                                <span>Ya tiene una cuenta? <a href="#"><Link to="/register">Iniciar Sesión</Link></a></span>
+                                <span>Ya tiene una cuenta? <Link to="/register">Iniciar Sesión</Link></span>
                             </div>
                         </form>
 

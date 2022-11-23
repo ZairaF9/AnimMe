@@ -13,6 +13,7 @@ const Chat = () => {
      return(
        <div className="chat">
          <div className="chatInfo">
+            <img src={data.user?.photo} alt=""  style={{width:"30px", height:"30px", borderRadius:"50%",objectFit:"cover"}}/>
             <span>{data.user?.displayName}</span>
            <div className="chatIcons">
                  <button className='btn-call'> <FontAwesomeIcon icon={faPhone}/></button>

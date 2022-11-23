@@ -2,6 +2,8 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import ChatA from "./pages/ChatA";
+import Group from "./pages/Groups";
+import CreateGroup from "./pages/CreateGroup";
 import "./style.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -27,6 +29,8 @@ return children
       <Route path="login" element={<Login />}/>
       <Route path="register" element={<Register />}/>
       <Route path="chat" element={<ProtectedRoute><ChatA /></ProtectedRoute>}/>
+      <Route path="group/:uid" element={<ProtectedRoute><Group /></ProtectedRoute>}/>
+      <Route path="CreateGroup" element={<ProtectedRoute><CreateGroup /></ProtectedRoute>}/>
     </Route>
   </Routes>
   </BrowserRouter>
