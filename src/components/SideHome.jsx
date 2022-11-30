@@ -1,12 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhone} from '@fortawesome/free-solid-svg-icons'
 import { faTrophy} from '@fortawesome/free-solid-svg-icons'
 import { faComment} from '@fortawesome/free-solid-svg-icons'
 import {faBlackboard} from '@fortawesome/free-solid-svg-icons'
 import { useNavigate,Link} from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 const SideHome = () => {
+
+
+    const { currentUser } = useContext(AuthContext);
+    const LinkToRewards = "/rewards/" +  currentUser.uid;
+
      return(
         <div className="d-flex flex-nowrap">
         <div className="d-flex flex-column flex-shrink-0 position-fixed"
@@ -30,7 +36,7 @@ const SideHome = () => {
                     </a>
                 </li>
                 <li className="my-4">
-                    <a href="#" className="nav-link py-3  rounded-0" title="Recompensas" data-bs-toggle="tooltip"
+                    <a href={LinkToRewards} className="nav-link py-3  rounded-0" title="Recompensas" data-bs-toggle="tooltip"
                         data-bs-placement="right">
                          <FontAwesomeIcon icon={faTrophy} style={{color:"white"}}/>
                     </a>

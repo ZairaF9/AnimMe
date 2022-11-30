@@ -563,3 +563,193 @@
 .Label_Grupo:hover {
     background: rgb(129, 144, 230);
 }
+
+#form-tarea
+{
+    position: relative;
+    left: 20%;
+}
+
+.TareaCards
+{
+    position: relative;
+    left: 20%;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Changa');
+
+.Content_Tarea
+{
+	
+	width: 90%;
+	position: absolute;
+	left: 5%;
+	top: 10%;
+	border-radius: 15px;
+	height: 630px;
+}
+
+.Content_Tarea h2, h3
+{
+	font-family: Changa;
+	padding-left: 25px;
+}
+
+.DescripcionT
+{
+	width: 40%;
+	padding-left: 25px;
+	font-family: Changa;
+}
+
+.File_Tarea
+{
+	display: none;
+}
+
+.File_Tarea_Label
+{
+	border: 0px;
+	border-radius: 5px;
+	padding: 5px 30px;
+	font-family: Changa;
+	font-size: 15px;
+	background-color: #05ACDD;
+	position: relative;
+	left: 32%;
+	top: 7%;
+}
+
+.Btn_Tarea
+{
+	border: 0px;
+	border-radius: 5px;
+	height: 39px;
+	width: 133px;
+	font-family: Changa;
+	font-size: 15px;
+	background-color: #D74816;
+	position: relative;
+	left: 32%;
+	top: 25%;
+}
+
+.File_Tarea_Label:hover
+{
+	background-color: #7ACAE2;
+}
+
+.Btn_Tarea:hover
+{
+	background-color: #E27A7A;
+}
+
+.Tarea_Entregada
+{
+	background-color: #3C76BF;
+	width: 30%;
+	height: 45px;
+	border-radius: 15px;
+	border: 1px solid #86BDFF;
+	position: relative;
+	left: 12%;
+	top: 7%;
+	overflow: ellipsis;
+}
+
+.Tarea_Entregada:hover
+{
+	background-color: #678EBE;
+}
+
+.Tarea_Entregada label
+{
+	font-family: Changa;
+	position: relative;
+	top: 10%;
+	left: 3%;
+	display: inline-block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+    vertical-align: middle;
+	width: 75%;
+}
+
+.Tarea_Entregada button
+{
+	position: absolute;
+	top: 16%;
+	left: 87%;
+	background-color: #D74816;
+	border-radius: 5px;
+	border: 0px;
+	width: 35px;
+	height: 30px;
+}
+
+.Tarea_Entregada button:hover
+{
+	background-color: #E27A7A;
+}
+
+.Fecha_Tarea
+{
+	font-family: Changa;
+	position: absolute;
+	left: 80%;
+	bottom: 90%;
+	font-weight: bold;
+}
+
+.Fecha_Tarea_D
+{
+	font-family: Changa;
+	position: absolute;
+	left: 80%;
+	bottom: 85%;
+}
+
+.Puntos_Tarea
+{
+	font-family: Changa;
+	position: absolute;
+	left: 80%;
+	bottom: 80%;
+	font-weight: bold;
+}
+
+.Puntos_Tarea_P
+{
+	font-family: Changa;
+	position: absolute;
+	left: 80%;
+	bottom: 75%;
+}
+
+.EntregadasWorkks
+{
+    font-family: Changa;
+	position: absolute;
+	left: 20%;
+}
+
+#columnaRewards
+{
+    font-family: Changa;
+	position: absolute;
+	right: 7%;
+}
+
+.RECOMPENSASAA
+{
+    font-family: Changa;
+	position: absolute;
+	left: 60%;
+}
+
+.user_rewards {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}

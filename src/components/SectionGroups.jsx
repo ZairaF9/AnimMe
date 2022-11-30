@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { useParams } from "react-router-dom";
 import {collection, query, where, getDocs} from "firebase/firestore";
 import {db} from "../Firebase";
-
+import ObtieneLosSubGrupos from './GetSubGroups';
 
 const SectionGroups = () =>
 {
@@ -13,9 +13,9 @@ const SectionGroups = () =>
     var GroupsPhoto;
     var GroupsUsers;
     const Group = [];
-    const [GroupFinal, setGroupFinal] = useState([]);
+    const [GroupFinal, setGroupFinal] = useState([]); 
 
-    const GetGroup = async () =>
+    const GetNameSubGroup = async () =>
     {
         const q = query(collection(db, "Groups"), where("uid", '==', params.uid));
         const querySnapshot = await getDocs(q);
@@ -33,8 +33,11 @@ const SectionGroups = () =>
     }
 
     useEffect(() => {
-        GetGroup();
+        GetNameSubGroup();
       }, []);
+
+      var LinkToHomeWork = "/works/"+params.uid;
+      var LinkToGroups = "/CreateSubGroup/"+params.uid;
 
     return(
         <div className="Content-Section-Group">
@@ -52,7 +55,7 @@ const SectionGroups = () =>
                                 </div>
                             </div>
                         </a>
-                        <a href="#" className="list-group-item list-group-item-action border-0 py-2" id="chat-friends">
+                        <a href={LinkToHomeWork} className="list-group-item list-group-item-action border-0 py-2" id="chat-friends">
                             <div className="d-flex align-items-start">
                                 <div className="flex-grow-1 ml-3">
                                     Tareas
@@ -80,14 +83,17 @@ const SectionGroups = () =>
                                 </div>
                             </div>
                         </a>
-                        <a href="#" className="list-group-item list-group-item-action border-0 py-2" id="chat-friends">
+                        <a href={LinkToGroups} className="list-group-item list-group-item-action border-0 py-2" id="chat-friends">
                             <div className="d-flex align-items-start">
                                 <div className="flex-grow-1 ml-3">
-                                    Equipo VI
+                                    Crear SubGrupo
                                 </div>
                             </div>
                         </a>
-
+                        <div className="flex-grow-1 ml-3">
+                            <br/>
+                            <ObtieneLosSubGrupos></ObtieneLosSubGrupos>
+                        </div>
                     </div>
     );
 };
